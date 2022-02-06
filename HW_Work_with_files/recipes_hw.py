@@ -1,20 +1,23 @@
+def get_ingredients(f, number_of_ingredients):
+  keys = ["ingredient_name", "quantity", "measure"]
+  dish_ingredients_list = []
+  for i in range(number_of_ingredients):
+    values = f.readline().strip().split(" | ")
+    values[1] = int(values[1])
+    dish_ingredients_list.append(dict(zip(keys, values)))
+  return dish_ingredients_list
+
 cook_book = {}
-keys = ["ingredient_name", "quantity", "measure"]
-with open("recipes.txt", encoding="utf-8") as f:
-  for line_in_file in f:
-    line = line_in_file.strip()
-    if line.isdigit():
-      number_of_ingredients = int(line)
+recipe_file = "recipes.txt"
+with open(recipe_file, encoding="utf-8") as f:
+  for line in f:
+    line = line.strip()
+    if not line.isdigit():
+      dish = line
     else:
-      dish_name = line
-      dish_ingredients_list = []
-      continue
-    for i in range(number_of_ingredients):
-      values = f.readline().strip().split(" | ")
-      values[1] = int(values[1])
-      dish_ingredients_list.append(dict(zip(keys, values)))
-    cook_book[dish_name] = dish_ingredients_list
-    f.readline()
+      cook_book[dish] = get_ingredients(f, int(line))
+      f.readline()
+
 print("Задача №1 / Вывод на печать словаря cook_book")
 for key, value in cook_book.items():
   print("-> Блюдо:", key, "\nИнгредиенты:", value)
