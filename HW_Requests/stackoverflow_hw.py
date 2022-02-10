@@ -1,4 +1,4 @@
-import pprint
+from pprint import pprint
 import datetime
 import requests
 BASE_URL = "https://api.stackexchange.com/2.3/"
@@ -13,4 +13,4 @@ params["todate"] = to_date
 params["tagged"] = "Python"
 params["site"] = "stackoverflow"
 response = requests.get(url, params=params)
-print(response.text)
+pprint(response.json())
