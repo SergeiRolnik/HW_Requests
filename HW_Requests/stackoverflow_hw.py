@@ -1,16 +1,16 @@
+import pprint
+import datetime
 import requests
-TOKEN = "2619421814940190"
-BASE_URL = "https://superheroapi.com/api/" + TOKEN
-heros = ["Hulk", "Captain America", "Thanos"]
-max_intelligence = 0
-max_intelligence_name = ""
-for hero in heros:
-    url = BASE_URL + "/search/" + hero
-    response = requests.get(url).json()
-    hero_intelligence = int(response["results"][0]["powerstats"]["intelligence"])
-    print("Hero:", hero, " / Intelligence:", hero_intelligence)
-    if hero_intelligence > max_intelligence:
-        max_intelligence = hero_intelligence
-        max_intelligence_name = hero
-print("------------------------------------")
-print("Winner:", max_intelligence_name, " / Intelligence:", max_intelligence)
+BASE_URL = "https://api.stackexchange.com/2.3/"
+url = BASE_URL + "questions/"
+to_date = datetime.datetime.today()
+from_date = to_date - datetime.timedelta(days=2)
+to_date = str(to_date.date())
+from_date = str(from_date.date())
+params = {}
+params["fromdate"] = from_date
+params["todate"] = to_date
+params["tagged"] = "Python"
+params["site"] = "stackoverflow"
+response = requests.get(url, params=params)
+print(response.text)
