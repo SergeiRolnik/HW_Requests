@@ -26,9 +26,8 @@ class YandexUploader:
         if response.status_code == 201:
             print(f"File {file_name} uploaded")
 
-if __name__ == '__main__':
-    path_to_file = "/test.txt"
-    file_name = "test.txt"
-    token = input("Enter your token: ")
-    uploader = YandexUploader(token)
-    uploader.upload(path_to_file, file_name)
+path_to_file = "/test.txt"
+file_name = "test.txt"
+token = input("Enter your token: ")
+uploader = YandexUploader(token)
+uploader.upload(path_to_file, file_name)
